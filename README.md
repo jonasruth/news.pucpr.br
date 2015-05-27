@@ -1,2 +1,2 @@
 # news.pucpr.br
-tiliza o projeto php-simple-routing
+Utiliza o projeto php-simple-routing
