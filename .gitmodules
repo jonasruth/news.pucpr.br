@@ -1,0 +1,3 @@
+[submodule "library/php-simple-routing"]
+	path = library/php-simple-routing
+	url = https://github.com/jonasruth/php-simple-routing.git
