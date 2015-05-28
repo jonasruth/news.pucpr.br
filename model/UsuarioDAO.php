@@ -61,4 +61,52 @@ class UsuarioDAO
 
         return $lista;
     }
+
+    public static function save(Usuario $usuario){
+
+        $st = null;
+        if($usuario->id){
+            $st = Conn::getInstance()->prepare(self::update());
+            $st->bindParam(":id", $usuario->id, PDO::PARAM_INT);
+        }else{
+            $st = Conn::getInstance()->prepare(self::insert());
+        }
+
+        $st->bindParam(":nome", $usuario->nome, PDO::PARAM_STR);
+        $st->bindParam(":email", $usuario->email, PDO::PARAM_STR);
+        $st->bindParam(":telefone", $usuario->telefone, PDO::PARAM_STR);
+        $st->bindParam(":senha", $usuario->senha, PDO::PARAM_STR);
+        $st->bindParam(":tipo", $usuario->tipo, PDO::PARAM_STR);
+        $st->bindParam(":status", $usuario->status, PDO::PARAM_STR);
+
+        return $st->execute();
+    }
+
+    private static function insert(){
+
+        $sql = "INSERT INTO usuarios
+                    (nome,email,telefone,senha,tipo,status)
+                VALUES
+                    (:nome,:email,:telefone,:senha,:tipo,:status);";
+        return $sql;
+
+    }
+
+    private static function update(){
+
+        $sql = "UPDATE
+						usuarios
+					SET
+						nome = :nome,
+						email = :email,
+						telefone = :telefone,
+						senha = :senha,
+						tipo = :tipo,
+						status = :status
+					WHERE
+						id = :id";
+
+        return $sql;
+
+    }
 }

@@ -49,9 +49,15 @@ class UsuarioController
      * Salvar
      * Acesso: Administrador
      */
-    public static function salvarAction()
+    public static function salvarAction($p_usuario)
     {
-
+        $toSave = new Usuario();
+        if (is_array($p_usuario) && sizeof($p_usuario) > 0) {
+            foreach ($p_usuario as $key => $value) {
+                $toSave->$key = $value;
+            }
+        }
+        return UsuarioDAO::save($toSave);
     }
 
 }
