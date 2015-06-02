@@ -40,9 +40,9 @@ class UsuarioController
      * Deletar
      * Acesso: Administrador
      */
-    public static function deletarAction()
+    public static function deletarAction($id)
     {
-
+        return UsuarioDAO::delete($id);
     }
 
     /**

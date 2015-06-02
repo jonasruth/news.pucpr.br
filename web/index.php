@@ -43,6 +43,10 @@ $rulelist = array(
             'id' => array('pattern' => '\d+',),
         ),
     ),
+    'del_usuario_ajx' => array(
+        'rule' => '/usuarios/delete',
+        'action' => '../view/usuario_del_ajx.php',
+    ),
     'salvar_usuario' => array(
         'rule' => '/usuarios/salvar',
         'action' => '../view/usuario_save.php',

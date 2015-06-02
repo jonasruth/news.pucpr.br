@@ -82,6 +82,20 @@ class UsuarioDAO
         return $st->execute();
     }
 
+    public static function delete($id){
+
+        $st = null;
+        if(isset($id) && !empty($id)){
+            $sql = "DELETE FROM usuarios WHERE id = :id;";
+            $st = Conn::getInstance()->prepare($sql);
+            $st->bindParam(":id", $id, PDO::PARAM_INT);
+        }else{
+            return false;
+        }
+
+        return $st->execute();
+    }
+
     private static function insert(){
 
         $sql = "INSERT INTO usuarios

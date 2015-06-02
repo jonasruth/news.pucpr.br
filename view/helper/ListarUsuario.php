@@ -13,10 +13,11 @@ class ListarUsuario
 
         foreach ($arrUsuarios as $item) {
             $html .= sprintf(
-                '<li>%s <a href="%s">Editar</a> <a href="%s">Excluir</a></li>',
+                '<li>%s <a href="%s">Editar</a> <a class="record-delete" href="%s" data-id="%s">Excluir</a></li>',
                 $item->nome,
                 Route::getInstance()->createLink('edt_usuario',array('id'=>$item->id)),
-                Route::getInstance()->createLink('del_usuario',array('id'=>$item->id))
+                Route::getInstance()->createLink('del_usuario',array('id'=>$item->id)),
+                $item->id
             );
         }
 
