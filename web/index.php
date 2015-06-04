@@ -17,9 +17,15 @@ require_once('../library/php-simple-routing/lib/Route.class.php');
 
 // Definição das regras de URL
 $rulelist = array(
+    // GERAL
     'startpage' => array(
         'rule' => '/',
         'action' => '../view/startpage.php',
+    ),
+    // NOTICIAS
+    'ger_noticias' => array(
+        'rule' => '/noticias',
+        'action' => '../view/noticia_list.php',
     ),
     'ger_usuarios' => array(
         'rule' => '/usuarios',

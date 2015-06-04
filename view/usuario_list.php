@@ -114,7 +114,7 @@
 <body>
 <h1>Usuários</h1>
 
-<button id="new-usuario">Novo</button>
+<a href="<?php echo $myRoute->createLink('new_usuario',array()); ?>">Novo</a>
 
 <?php
 use NewsPucpr\UsuarioController;
@@ -122,36 +122,6 @@ use NewsPucpr\UsuarioController;
 UsuarioController::listarAction();
 ?>
 
-<div id="dialog-form">
-    <form method="post" action="<?php echo $myRoute->createLink('salvar_usuario', array()); ?>">
-        <fieldset>
-            <label for="" class="fieldLabel">Nome</label>
-            <input id="" name="usuario[nome]" type="text" value=""/><br/>
-
-            <label for="" class="fieldLabel">Email</label>
-            <input id="" name="usuario[email]" type="text" value=""/><br/>
-
-            <label for="" class="fieldLabel">Telefone</label>
-            <input id="" name="usuario[telefone]" type="text" value=""/><br/>
-
-            <label for="" class="fieldLabel">Senha</label>
-            <input id="" name="usuario[senha]" type="text" value=""/><br/>
-
-            <label for="" class="fieldLabel">Tipo</label>
-            <input id="" name="usuario[tipo]" type="radio" value="E"/>
-            <label for="">Escritor</label>
-            <input id="" name="usuario[tipo]" type="radio" value="A"/>
-            <label for="">Administrador</label><br/>
-
-            <label for="" class="fieldLabel">Status</label>
-            <input id="status-ativo" name="usuario[status]" type="radio" value="A"/>
-            <label for="status-ativo">Ativo</label>
-            <input id="status-inativo" name="usuario[status]" type="radio" value="I"/>
-            <label for="status-inativo">Inativo</label><br/>
-
-        </fieldset>
-    </form>
-</div>
 </body>
 
 </html>
