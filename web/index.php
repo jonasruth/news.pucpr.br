@@ -11,6 +11,8 @@ require_once('../controller/UsuarioController.php');
 require_once('../model/Usuario.php');
 require_once('../model/UsuarioDAO.php');
 require_once('../view/helper/ListarUsuario.php');
+require_once('../view/helper/TabelaUsuarios.php');
+require_once('../view/helper/MenuAdm.php');
 
 // https://github.com/jonasruth/php-simple-routing
 require_once('../library/php-simple-routing/lib/Route.class.php');
@@ -22,39 +24,45 @@ $rulelist = array(
         'rule' => '/',
         'action' => '../view/startpage.php',
     ),
-    // NOTICIAS
+    // ADM
+    'administracao' => array(
+        'rule' => '/administracao',
+        'action' => '../view/administracao.php',
+    ),
+    // ADM NOTICIAS
     'ger_noticias' => array(
-        'rule' => '/noticias',
+        'rule' => '/administracao/noticias',
         'action' => '../view/noticia_list.php',
     ),
+    // ADM USUARIOS
     'ger_usuarios' => array(
-        'rule' => '/usuarios',
+        'rule' => '/administracao/usuarios',
         'action' => '../view/usuario_list.php',
     ),
     'new_usuario' => array(
-        'rule' => '/usuarios/new',
+        'rule' => '/administracao/usuarios/new',
         'action' => '../view/usuario_new.php',
     ),
     'edt_usuario' => array(
-        'rule' => '/usuarios/edit/{id}',
+        'rule' => '/administracao/usuarios/edit/{id}',
         'action' => '../view/usuario_edit.php',
         'params' => array(
             'id' => array('pattern' => '\d+',),
         ),
     ),
     'del_usuario' => array(
-        'rule' => '/usuarios/delete/{id}',
+        'rule' => '/administracao/usuarios/delete/{id}',
         'action' => '../view/usuario_del.php',
         'params' => array(
             'id' => array('pattern' => '\d+',),
         ),
     ),
     'del_usuario_ajx' => array(
-        'rule' => '/usuarios/delete',
+        'rule' => '/administracao/usuarios/delete',
         'action' => '../view/usuario_del_ajx.php',
     ),
     'salvar_usuario' => array(
-        'rule' => '/usuarios/salvar',
+        'rule' => '/administracao/usuarios/salvar',
         'action' => '../view/usuario_save.php',
     ),
 );

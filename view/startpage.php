@@ -15,7 +15,7 @@
     <div class="container">
         <nav class="blog-nav">
             <a class="blog-nav-item active" href="<?php echo $myRoute->createLink('startpage',array()); ?>">Notícias</a>
-            <a class="blog-nav-item" href="#">Administração</a>
+            <a class="blog-nav-item" href="<?php echo $myRoute->createLink('administracao',array()); ?>">Administração</a>
         </nav>
     </div>
 </div>

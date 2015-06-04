@@ -15,7 +15,7 @@ class UsuarioController
     public static function listarAction()
     {
         $usuarios = UsuarioDAO::findAll();
-        echo ListarUsuario::fromArray($usuarios);
+        echo TabelaUsuarios::fromArray($usuarios);
     }
 
     /**

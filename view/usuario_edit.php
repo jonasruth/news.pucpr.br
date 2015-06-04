@@ -1,48 +1,93 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title></title>
-    <meta charset="utf-8">
-    <link rel="stylesheet" href="<?php echo \NewsPucpr\Application::getInstance()->getBaseURL() ?>css/styles.css">
-    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
-</head>
-<body>
 <?php $usuario = \NewsPucpr\UsuarioDAO::find($myRoute->getParam('id')) ?>
-<h1>Edição do usuário <?php echo \NewsPucpr\UsuarioDAO::find($myRoute->getParam('id'))->nome ?></h1>
+<!DOCTYPE html>
+<head>
+    <title>Dashboard Template for Bootstrap</title>
 
-<form method="post" action="<?php echo $myRoute->createLink('salvar_usuario', array()); ?>">
-    <p>Exibir aqui o formulário</p>
+    <?php include('html_include/adm-header.html'); ?>
+</head>
 
-    <input id="" name="usuario[id]" type="hidden" value="<?php echo $usuario->id?>"/>
+<body>
 
-    <label for="" class="fieldLabel">Nome</label>
-    <input id="" name="usuario[nome]" type="text" value="<?php echo $usuario->nome?>"/><br/>
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">PUCPR News - Administração</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="#">Dashboard</a></li>
+                <li><a href="#">Settings</a></li>
+                <li><a href="#">Profile</a></li>
+                <li><a href="#">Help</a></li>
+            </ul>
+            <form class="navbar-form navbar-right">
+                <input type="text" class="form-control" placeholder="Search...">
+            </form>
+        </div>
+    </div>
+</nav>
 
-    <label for="" class="fieldLabel">Email</label>
-    <input id="" name="usuario[email]" type="text" value="<?php echo $usuario->email?>"/><br/>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar">
+            <ul class="nav nav-sidebar">
+                <?php echo \NewsPucpr\MenuAdm::create() ?>
+            </ul>
+        </div>
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+            <h1 class="page-header">Usuários</h1>
 
-    <label for="" class="fieldLabel">Telefone</label>
-    <input id="" name="usuario[telefone]" type="text" value="<?php echo $usuario->telefone?>"/><br/>
+            <h2 class="sub-header">Edição do usuário <?php echo \NewsPucpr\UsuarioDAO::find($myRoute->getParam('id'))->nome ?></h2>
 
-    <label for="" class="fieldLabel">Senha</label>
-    <input id="" name="usuario[senha]" type="text" value="<?php echo $usuario->senha?>"/><br/>
 
-    <label for="" class="fieldLabel">Tipo</label>
-    <input id="" name="usuario[tipo]" type="radio" value="E" <?php echo $usuario->tipo ==='E' ? 'checked="checked':'' ?>/>
-    <label for="" class="fieldLabel">Escritor</label>
-    <input id="" name="usuario[tipo]" type="radio" value="A" <?php echo $usuario->tipo ==='A' ? 'checked="checked':'' ?>/>
-    <label for="" class="fieldLabel">Administrador</label><br/>
 
-    <label for="" class="fieldLabel">Status</label>
-    <input id="" name="usuario[status]" type="radio" value="A" <?php echo $usuario->status ==='A' ? 'checked="checked':'' ?>/>
-    <label for="">Ativo</label>
-    <input id="" name="usuario[status]" type="radio" value="I" <?php echo $usuario->status ==='I' ? 'checked="checked':'' ?>/>
-    <label for="">Inativo</label><br/>
+            <form method="post" action="<?php echo $myRoute->createLink('salvar_usuario', array()); ?>">
 
-    <a href="<?php echo $myRoute->createLink('ger_usuarios', array()); ?>">cancelar</a>
-    <button type="submit">Salvar</button>
-</form>
+                <input id="usuario[id]" name="usuario[id]" type="hidden" value="<?php echo $usuario->id?>"/>
+
+                <label for="usuario[nome]" class="fieldLabel">Nome</label>
+                <input id="usuario[nome]" name="usuario[nome]" type="text" value="<?php echo $usuario->nome?>"/><br/>
+
+                <label for="usuario[email]" class="fieldLabel">Email</label>
+                <input id="usuario[email]" name="usuario[email]" type="text" value="<?php echo $usuario->email?>"/><br/>
+
+                <label for="usuario[telefone]" class="fieldLabel">Telefone</label>
+                <input id="usuario[telefone]" name="usuario[telefone]" type="text" value="<?php echo $usuario->telefone?>"/><br/>
+
+                <label for="usuario[senha]" class="fieldLabel">Senha</label>
+                <input id="usuario[senha]" name="usuario[senha]" type="text" value="<?php echo $usuario->senha?>"/><br/>
+
+                <label for="usuario[tipo]E" class="fieldLabel">Tipo</label>
+                <input id="usuario[tipo]E" name="usuario[tipo]" type="radio" value="E" <?php echo $usuario->tipo ==='E' ? 'checked':'' ?>/>
+                <label for="usuario[tipo]E">Escritor</label>
+                <input id="usuario[tipo]A" name="usuario[tipo]" type="radio" value="A" <?php echo $usuario->tipo ==='A' ? 'checked':'' ?>/>
+                <label for="usuario[tipo]A">Administrador</label><br/>
+
+                <label for="usuario[status]A" class="fieldLabel">Status</label>
+                <input id="usuario[status]A" name="usuario[status]" type="radio" value="A" <?php echo $usuario->status ==='A' ? 'checked':'' ?>/>
+                <label for="usuario[status]A">Ativo</label>
+                <input id="usuario[status]I" name="usuario[status]" type="radio" value="I" <?php echo $usuario->status ==='I' ? 'checked':'' ?>/>
+                <label for="usuario[status]I">Inativo</label><br/>
+
+                <p class="buttonGroup">
+                    <a class="btn btn-lg btn-link" href="<?php echo $myRoute->createLink('ger_usuarios', array()); ?>">cancelar</a>
+                    <button class="btn btn-lg btn-success" type="submit">Salvar</button>
+                </p>
+            </form>
+
+        </div>
+    </div>
+</div>
+
 
 </body>
+
+<?php include('html_include/adm-scripts.html'); ?>
+
 </html>

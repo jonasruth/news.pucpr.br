@@ -1,127 +1,94 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title></title>
-    <meta charset="utf-8">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
-    <script type="text/javascript">
-        jQuery(document).ready(function ($) {
-
-            var dialog;
-
-            $('.record-delete').on('click', function (e) {
-                e.preventDefault();
-                if (!confirm('Deseja realmente excluir?')) {
-                    return;
-                }
-                ;
-
-                var este = this;
-                $.ajax({
-                    url: '<?php echo $myRoute->createLink('del_usuario_ajx', array()); ?>',
-                    data: {id: $(este).data('id')},
-                    dataType: 'json',
-                    type: 'GET',
-                    success: function (resposta) {
-                        if (resposta.success == true) {
-                            alert('ok');
-                        } else {
-                            alert(resposta);
-                        }
-                    }
-                });
-            });
-
-            function addUser() {
-                alert('ok');
-            }
-
-            dialog = $("#dialog-form").dialog({
-                autoOpen: false,
-                height: 300,
-                width: 350,
-                modal: true,
-                buttons: {
-                    "Create an account": addUser,
-                    Cancel: function () {
-                        dialog.dialog("close");
-                    }
-                },
-                close: function () {
-                    form[ 0 ].reset();
-                    //allFields.removeClass("ui-state-error");
-                }
-            });
-
-            $("#new-usuario").button().on("click", function () {
-                dialog.dialog("open");
-            });
-
-            form = dialog.find( "form" ).on( "submit", function( event ) {
-                event.preventDefault();
-                addUser();
-            });
-
-        });
-    </script>
-    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
-    <link rel="stylesheet" href="<?php echo \NewsPucpr\Application::getInstance()->getBaseURL() ?>css/styles.css">
-    <style>
-        body {
-            font-size: .8em;
-        }
-
-        /*label, input {
-            display: block;
-        }*/
-
-        input.text {
-            margin-bottom: 12px;
-            width: 95%;
-            padding: .4em;
-        }
-
-        fieldset {
-            padding: 0;
-            border: 0;
-            margin-top: 25px;
-        }
-
-        h1 {
-            font-size: 1.2em;
-            margin: .6em 0;
-        }
-
-        div#users-contain table {
-            margin: 1em 0;
-            border-collapse: collapse;
-            width: 100%;
-        }
-
-        div#users-contain table td, div#users-contain table th {
-            border: 1px solid #eee;
-            padding: .6em 10px;
-            text-align: left;
-        }
-
-        .ui-dialog .ui-state-error {
-            padding: .3em;
-        }
-
-    </style>
-</head>
-<body>
-<h1>Usuários</h1>
-
-<a href="<?php echo $myRoute->createLink('new_usuario',array()); ?>">Novo</a>
-
 <?php
+
 use NewsPucpr\UsuarioController;
 
-UsuarioController::listarAction();
 ?>
+<!DOCTYPE html>
+<head>
+    <title>Dashboard Template for Bootstrap</title>
 
+    <?php include('html_include/adm-header.html'); ?>
+</head>
+
+<body>
+
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">PUCPR News - Administração</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="#">Dashboard</a></li>
+                <li><a href="#">Settings</a></li>
+                <li><a href="#">Profile</a></li>
+                <li><a href="#">Help</a></li>
+            </ul>
+            <form class="navbar-form navbar-right">
+                <input type="text" class="form-control" placeholder="Search...">
+            </form>
+        </div>
+    </div>
+</nav>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar">
+            <ul class="nav nav-sidebar">
+                <?php echo \NewsPucpr\MenuAdm::create() ?>
+            </ul>
+        </div>
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+            <h1 class="page-header">Usuários</h1>
+
+            <h2 class="sub-header">Listagem <a class="btn btn-sm btn-success" href="<?php echo $myRoute->createLink('new_usuario',array()); ?>">Cadastrar novo usuário</a></h2>
+
+
+            <div class="table-responsive">
+
+                <?php UsuarioController::listarAction(); ?>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<?php include('html_include/adm-scripts.html'); ?>
+
+<script type="text/javascript">
+    jQuery(document).ready(function ($) {
+
+        $('.record-delete').on('click', function (e) {
+            e.preventDefault();
+            var registro = $(this).data('id');
+
+            if (!confirm('Deseja realmente excluir este usuário?')) {
+                return;
+            }
+            ;
+
+            $.ajax({
+                url: '<?php echo $myRoute->createLink('del_usuario_ajx', array()); ?>',
+                data: {id: registro},
+                dataType: 'json',
+                type: 'GET',
+                success: function (resposta) {
+                    if (resposta.success == true) {
+                        $('#usuarios_row_'+registro).hide();
+                    } else {
+                        alert(resposta);
+                    }
+                }
+            });
+        });
+
+    });
+</script>
 </body>
-
 </html>
