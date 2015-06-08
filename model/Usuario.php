@@ -1,10 +1,10 @@
 <?php
 
-namespace NewsPucpr;
+namespace JonasRuth\NewsPucpr;
 
 /**
  * Class Usuario
- * @package NewsPucpr
+ * @package JonasRuth\NewsPucpr
  */
 class Usuario{
 

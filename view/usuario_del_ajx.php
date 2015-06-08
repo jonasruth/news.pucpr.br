@@ -1,6 +1,6 @@
 <?php
 
-$sucesso = \NewsPucpr\UsuarioController::deletarAction($myRoute->getParam('id'));
+$sucesso = \JonasRuth\NewsPucpr\UsuarioController::deletarAction($myRoute->getParam('id'));
 
 $out = array(
     'success' => $sucesso,

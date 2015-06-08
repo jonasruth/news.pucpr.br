@@ -1,6 +1,6 @@
 <?php
 
-namespace NewsPucpr;
+namespace JonasRuth\NewsPucpr;
 
 use \Route;
 

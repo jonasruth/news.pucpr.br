@@ -1,6 +1,6 @@
 <?php
 
-use NewsPucpr\NoticiaController;
+use JonasRuth\NewsPucpr\NoticiaController;
 
 ?>
 <!DOCTYPE html>
@@ -12,7 +12,7 @@ use NewsPucpr\NoticiaController;
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
     <!-- BOOTSTRAP Optional theme -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
-    <link rel="stylesheet" href="<?php echo \NewsPucpr\Application::getInstance()->getBaseURL() ?>css/blog.css">
+    <link rel="stylesheet" href="<?php echo \JonasRuth\NewsPucpr\Application::getInstance()->getBaseURL() ?>css/blog.css">
 </head>
 <body>
 

@@ -1,6 +1,6 @@
 <?php
 
-use NewsPucpr\NoticiaController;
+use JonasRuth\NewsPucpr\NoticiaController;
 
 ?>
 <!DOCTYPE html>
@@ -12,7 +12,7 @@ use NewsPucpr\NoticiaController;
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
     <!-- BOOTSTRAP Optional theme -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
-    <link rel="stylesheet" href="<?php echo \NewsPucpr\Application::getInstance()->getBaseURL() ?>css/blog.css">
+    <link rel="stylesheet" href="<?php echo \JonasRuth\NewsPucpr\Application::getInstance()->getBaseURL() ?>css/blog.css">
 </head>
 <body>
 
@@ -37,12 +37,12 @@ use NewsPucpr\NoticiaController;
 
                 <?php NoticiaController::listarPublicoAction(); ?>
 
-                <nav>
+                <!--<nav>
                     <ul class="pager">
                         <li><a href="#">Previous</a></li>
                         <li><a href="#">Next</a></li>
                     </ul>
-                </nav>
+                </nav>-->
             </div><!-- /.blog-main -->
 
             <div class="col-sm-3 col-sm-offset-1 blog-sidebar">

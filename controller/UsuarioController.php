@@ -1,6 +1,6 @@
 <?php
 
-namespace NewsPucpr;
+namespace JonasRuth\NewsPucpr;
 
 /**
  * Class UsuarioController
@@ -34,6 +34,48 @@ class UsuarioController
     public static function editarAction()
     {
 
+    }
+
+    /**
+     * Tentar Autenticar
+     * Acesso: Público
+     */
+    public static function autenticarAction($email,$senha)
+    {
+        self::logoutAction();
+
+        $usuario = UsuarioDAO::auth($email,$senha);
+        if(!empty($usuario)){
+            $_SESSION['auth']['valid'] = 'ok';
+            $_SESSION['auth']['user'] = $usuario;
+            return true;
+        }
+        return false;
+    }
+
+    public static function getLogged()
+    {
+        if(!empty($_SESSION['auth']['user'])){
+            return $_SESSION['auth']['user'];
+        }
+        throw new \Exception('Nenhum usuário autenticado.');
+    }
+
+    public static function isLogged()
+    {
+        if(!empty($_SESSION['auth']['valid']) && $_SESSION['auth']['valid'] === 'ok'){
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Tentar Logout
+     * Acesso: Público
+     */
+    public static function logoutAction()
+    {
+        unset($_SESSION['auth']);
     }
 
     /**

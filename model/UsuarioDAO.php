@@ -1,11 +1,38 @@
 <?php
 
-namespace NewsPucpr;
+namespace JonasRuth\NewsPucpr;
 
 use \PDO;
 
 class UsuarioDAO
 {
+
+    public static function auth($email,$senha)
+    {
+
+        $sql = "SELECT
+						id,nome,email,telefone,tipo,status
+					FROM
+						usuarios
+					WHERE
+						email = :email
+					AND
+						senha = :senha
+					AND
+					    status = 'A'
+                ";
+
+
+        $st = Conn::getInstance()->prepare($sql);
+
+        $st->bindParam(":email", $email, PDO::PARAM_STR);
+        $st->bindParam(":senha", $senha, PDO::PARAM_STR);
+        $st->execute();
+
+        //Obtém registro encontrado
+        $row = $st->fetch(PDO::FETCH_ASSOC);
+        return $row;
+    }
 
     public static function find($id)
     {
@@ -24,7 +51,7 @@ class UsuarioDAO
         //Obtém registro encontrado
         $row = $st->fetch(PDO::FETCH_ASSOC);
 
-        $record = new \NewsPucpr\Usuario();
+        $record = new \JonasRuth\NewsPucpr\Usuario();
 
         if (is_array($row) && sizeof($row) > 0) {
             foreach ($row as $key => $value) {
@@ -48,7 +75,7 @@ class UsuarioDAO
 
         while ($row = $st->fetch(PDO::FETCH_ASSOC)) {
 
-            $item = new \NewsPucpr\Usuario();
+            $item = new \JonasRuth\NewsPucpr\Usuario();
 
             foreach ($row as $key => $value) {
                 $item->$key = $value;

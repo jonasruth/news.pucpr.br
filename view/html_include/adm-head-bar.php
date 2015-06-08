@@ -11,7 +11,9 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="<?php echo $myRoute->createLink('startpage', array()); ?>">Página Inicial do Site</a></li>
+                <li><a href="<?php echo $myRoute->createLink('startpage'); ?>">Página Inicial do Site</a></li>
+                <li><a href="#"><?php echo \JonasRuth\NewsPucpr\UsuarioController::getLogged()['nome'] ?></a></li>
+                <li><a href="<?php echo $myRoute->createLink('logout'); ?>">Logout</a></li>
             </ul>
             <!--<form class="navbar-form navbar-right">
                 <input type="text" class="form-control" placeholder="Search...">

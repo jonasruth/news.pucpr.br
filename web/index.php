@@ -2,6 +2,7 @@
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 header('Content-type:text/html; charset=UTF-8');
+session_start();
 
 // Carregamento de classes
 require_once('../core/Conn.php');
@@ -20,13 +21,15 @@ require_once('../model/UsuarioDAO.php');
 require_once('../view/helper/TabelaUsuarios.php');
 require_once('../view/helper/MenuAdm.php');
 
+// Library
 require_once('../library/Util.php');
+require_once('../library/AccessDeniedException.php');
 
 // https://github.com/jonasruth/php-simple-routing
 require_once('../library/php-simple-routing/lib/Route.class.php');
 
 // Definição das regras de URL
-$rulelist = array(
+$routeList = array(
     // GERAL
     'startpage' => array(
         'rule' => '/',
@@ -38,18 +41,21 @@ $rulelist = array(
         'action' => '../view/noticia_leitura.php',
         'params' => array(
             'id' => array('pattern' => '\d+',),
-            'titulo_slug' => array('pattern'=>'[a-z0-9-_]+'),
+            'titulo_slug' => array('pattern' => '[a-z0-9-_]+'),
         ),
     ),
     // ADM
+    'login' => array(
+        'rule' => '/login',
+        'action' => '../view/autenticacao.php',
+    ),
+    'logout' => array(
+        'rule' => '/logout',
+        'action' => '../view/logout.php',
+    ),
     'administracao' => array(
         'rule' => '/administracao',
         'action' => '../view/administracao.php',
-    ),
-    // ADM NOTICIAS
-    'ger_noticias' => array(
-        'rule' => '/administracao/noticias',
-        'action' => '../view/noticia_list.php',
     ),
     // ADM NOTICIAS
     'ger_noticias' => array(
@@ -116,7 +122,38 @@ $rulelist = array(
     ),
 );
 
-use NewsPucpr\Application;
+define('ACESSO_ESCRITOR', 'E');
+define('ACESSO_ADMINISTRADOR', 'A');
+
+$controleAcesso = array(
+    // GERAL
+    'startpage' => array(),
+    'leitura' => array(),
+    // ADM
+    'login' => array(),
+    'logout' => array(),
+    'administracao' => array(ACESSO_ESCRITOR, ACESSO_ADMINISTRADOR),
+    // ADM NOTICIAS
+    'ger_noticias' => array(ACESSO_ESCRITOR, ACESSO_ADMINISTRADOR),
+    'new_noticia' => array(ACESSO_ESCRITOR, ACESSO_ADMINISTRADOR),
+    'edt_noticia' => array(ACESSO_ESCRITOR, ACESSO_ADMINISTRADOR),
+    'del_noticia' => array(ACESSO_ESCRITOR, ACESSO_ADMINISTRADOR),
+    'del_noticia_ajx' => array(ACESSO_ESCRITOR, ACESSO_ADMINISTRADOR),
+    'salvar_noticia' => array(ACESSO_ESCRITOR, ACESSO_ADMINISTRADOR),
+    // ADM USUARIOS
+    'ger_usuarios' => array(ACESSO_ADMINISTRADOR),
+    'new_usuario' => array(ACESSO_ADMINISTRADOR),
+    'edt_usuario' => array(ACESSO_ADMINISTRADOR),
+    'del_usuario' => array(ACESSO_ADMINISTRADOR),
+    'del_usuario_ajx' => array(ACESSO_ADMINISTRADOR),
+    'salvar_usuario' => array(ACESSO_ADMINISTRADOR),
+);
+
+use JonasRuth\NewsPucpr\Application;
+use JonasRuth\NewsPucpr\AccessDeniedException;
+use JonasRuth\PhpSimpleRoute\Route;
+use JonasRuth\PhpSimpleRoute\RouteNotFoundException;
+
 $app = Application::getInstance()
     ->setProtocol("http")
     ->setDomain("news.pucpr.br")
@@ -125,14 +162,35 @@ $app = Application::getInstance()
 try {
 
     $myRoute = Route::getInstance()
-        ->setConfig($rulelist, $app->getDomain(), $app->getBasedir(), $app->getProtocol())
+        ->setConfig($app->getDomain(), $app->getBasedir(), $app->getProtocol())
+        ->setRouteList($routeList)
         ->init($_SERVER['REQUEST_URI'])
         ->check();
 
-    include $myRoute->getMatchedRouteAction();
+    $meuAcesso = null;
+    if(\JonasRuth\NewsPucpr\UsuarioController::isLogged()){
+        $meuAcesso = \JonasRuth\NewsPucpr\UsuarioController::getLogged()['tipo'];
+    }
+    $acessoNecessario = $controleAcesso[$myRoute->getMatchedRouteName()];
 
+    if(empty($acessoNecessario)){ // Se não for necessário permissão de acesso
+        include $myRoute->getMatchedRouteAction(); // Vai para destino
+    }else{
+        if(!empty($acessoNecessario)){ // Se for necessário permissão de acesso
+            if(!empty($meuAcesso)){ // Se o usuário já estiver logado
+                if(in_array($meuAcesso, $controleAcesso[$myRoute->getMatchedRouteName()])){
+                    include $myRoute->getMatchedRouteAction();
+                }else{
+                    throw new AccessDeniedException('Acesso não permitido.');
+                }
+            }else{ // Pedir login
+                include '../view/autenticacao.php';
+            }
+        }
+    }
+    exit(0);
 } catch (RouteNotFoundException $e) {
-
     include '../view/route-not-found.php';
-
+} catch (AccessDeniedException $e) {
+    include '../view/access-denied.php';
 }

@@ -1,9 +1,9 @@
 <?php
 
-namespace NewsPucpr;
+namespace JonasRuth\NewsPucpr;
 /**
  * Class Noticia
- * @package NewsPucpr
+ * @package JonasRuth\NewsPucpr
  */
 class Noticia {
 

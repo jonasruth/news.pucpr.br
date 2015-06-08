@@ -1,13 +1,13 @@
 <?php
 
-namespace NewsPucpr;
+namespace JonasRuth\NewsPucpr;
 
 use \PDO;
 
 /**
  *
  * Class Conn
- * @package NewsPucpr
+ * @package JonasRuth\NewsPucpr
  */
 class Conn {
 
