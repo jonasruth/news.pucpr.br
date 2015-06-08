@@ -35,12 +35,11 @@ use NewsPucpr\NoticiaController;
         <div class="row">
             <div class="col-sm-8 blog-main">
 
-                <?php NoticiaController::listarPublicoAction(); ?>
+                <?php NoticiaController::leituraPublicoAction($myRoute->getParam('id')); ?>
 
                 <nav>
                     <ul class="pager">
-                        <li><a href="#">Previous</a></li>
-                        <li><a href="#">Next</a></li>
+                        <li><a href="<?php echo $myRoute->createLink('startpage', array()); ?>#noticia_id_<?php echo $myRoute->getParam('id')?>">Voltar para a listagem de notícias</a></li>
                     </ul>
                 </nav>
             </div><!-- /.blog-main -->

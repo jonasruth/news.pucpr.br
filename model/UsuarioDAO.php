@@ -24,7 +24,6 @@ class UsuarioDAO
         //Obtém registro encontrado
         $row = $st->fetch(PDO::FETCH_ASSOC);
 
-        // Define nos atributos da instância os valores
         $record = new \NewsPucpr\Usuario();
 
         if (is_array($row) && sizeof($row) > 0) {
@@ -45,7 +44,6 @@ class UsuarioDAO
         $st->execute();
 
 
-        //Inicia a lista de produtos
         $lista = array();
 
         while ($row = $st->fetch(PDO::FETCH_ASSOC)) {

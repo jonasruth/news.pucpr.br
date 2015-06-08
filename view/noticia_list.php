@@ -1,6 +1,6 @@
 <?php
 
-use NewsPucpr\UsuarioController;
+use NewsPucpr\NoticiaController;
 
 ?>
 <!DOCTYPE html>
@@ -22,14 +22,14 @@ use NewsPucpr\UsuarioController;
             </ul>
         </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-            <h1 class="page-header">Usuários</h1>
+            <h1 class="page-header">Notícias</h1>
 
-            <h2 class="sub-header">Listagem <a class="btn btn-sm btn-success" href="<?php echo $myRoute->createLink('new_usuario',array()); ?>">Cadastrar novo usuário</a></h2>
+            <h2 class="sub-header">Listagem <a class="btn btn-sm btn-success" href="<?php echo $myRoute->createLink('new_noticia',array()); ?>">Cadastrar nova notícia</a></h2>
 
 
             <div class="table-responsive">
 
-                <?php UsuarioController::listarAction(); ?>
+                <?php NoticiaController::listarAction(); ?>
 
             </div>
         </div>
@@ -45,19 +45,18 @@ use NewsPucpr\UsuarioController;
             e.preventDefault();
             var registro = $(this).data('id');
 
-            if (!confirm('Deseja realmente excluir este usuário?')) {
+            if (!confirm('Deseja realmente excluir esta notícia?')) {
                 return;
             }
-            ;
 
             $.ajax({
-                url: '<?php echo $myRoute->createLink('del_usuario_ajx', array()); ?>',
+                url: '<?php echo $myRoute->createLink('del_noticia_ajx', array()); ?>',
                 data: {id: registro},
                 dataType: 'json',
                 type: 'GET',
                 success: function (resposta) {
                     if (resposta.success == true) {
-                        $('#usuarios_row_'+registro).hide();
+                        $('#noticias_row_'+registro).hide();
                     } else {
                         alert(resposta);
                     }

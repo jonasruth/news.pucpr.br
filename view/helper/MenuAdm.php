@@ -15,7 +15,7 @@ class MenuAdm
         $html .= sprintf(
                     '<li %s><a href="%s">Overview <span class="sr-only">(current)</span></a></li>'
                     ,in_array($myRoute->getMatchedRouteName(),array('administracao')) ? 'class="active"' : ''
-                    ,$myRoute->createLink('administracao',array())
+                    ,$myRoute->createLink('administracao')
                 );
         $html .= sprintf(
                     '<li %s><a href="%s">Notícias</a></li>'

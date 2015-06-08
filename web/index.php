@@ -7,12 +7,20 @@ header('Content-type:text/html; charset=UTF-8');
 require_once('../core/Conn.php');
 require_once('../core/Application.php');
 require_once('../controller/NoticiaController.php');
+require_once('../model/Noticia.php');
+require_once('../model/NoticiaDAO.php');
+require_once('../view/helper/TabelaNoticias.php');
+require_once('../view/helper/ListaNoticias.php');
+require_once('../view/helper/LeituraNoticia.php');
+
+
 require_once('../controller/UsuarioController.php');
 require_once('../model/Usuario.php');
 require_once('../model/UsuarioDAO.php');
-require_once('../view/helper/ListarUsuario.php');
 require_once('../view/helper/TabelaUsuarios.php');
 require_once('../view/helper/MenuAdm.php');
+
+require_once('../library/Util.php');
 
 // https://github.com/jonasruth/php-simple-routing
 require_once('../library/php-simple-routing/lib/Route.class.php');
@@ -23,6 +31,15 @@ $rulelist = array(
     'startpage' => array(
         'rule' => '/',
         'action' => '../view/startpage.php',
+
+    ),
+    'leitura' => array(
+        'rule' => '/leitura/{id}/{titulo_slug}',
+        'action' => '../view/noticia_leitura.php',
+        'params' => array(
+            'id' => array('pattern' => '\d+',),
+            'titulo_slug' => array('pattern'=>'[a-z0-9-_]+'),
+        ),
     ),
     // ADM
     'administracao' => array(
@@ -34,6 +51,38 @@ $rulelist = array(
         'rule' => '/administracao/noticias',
         'action' => '../view/noticia_list.php',
     ),
+    // ADM NOTICIAS
+    'ger_noticias' => array(
+        'rule' => '/administracao/noticias',
+        'action' => '../view/noticia_list.php',
+    ),
+    'new_noticia' => array(
+        'rule' => '/administracao/noticias/new',
+        'action' => '../view/noticia_new.php',
+    ),
+    'edt_noticia' => array(
+        'rule' => '/administracao/noticias/edit/{id}',
+        'action' => '../view/noticia_edit.php',
+        'params' => array(
+            'id' => array('pattern' => '\d+',),
+        ),
+    ),
+    'del_noticia' => array(
+        'rule' => '/administracao/noticias/delete/{id}',
+        'action' => '../view/noticia_del.php',
+        'params' => array(
+            'id' => array('pattern' => '\d+',),
+        ),
+    ),
+    'del_noticia_ajx' => array(
+        'rule' => '/administracao/noticias/delete',
+        'action' => '../view/noticia_del_ajx.php',
+    ),
+    'salvar_noticia' => array(
+        'rule' => '/administracao/noticias/salvar',
+        'action' => '../view/noticia_save.php',
+    ),
+
     // ADM USUARIOS
     'ger_usuarios' => array(
         'rule' => '/administracao/usuarios',
