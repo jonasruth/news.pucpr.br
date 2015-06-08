@@ -13,7 +13,7 @@ class MenuAdm
 
         $html = '';
         $html .= sprintf(
-                    '<li %s><a href="%s">Overview <span class="sr-only">(current)</span></a></li>'
+                    '<li %s><a href="%s">Seja Bem-Vindo <span class="sr-only">(current)</span></a></li>'
                     ,in_array($myRoute->getMatchedRouteName(),array('administracao')) ? 'class="active"' : ''
                     ,$myRoute->createLink('administracao')
                 );
