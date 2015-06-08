@@ -33,7 +33,7 @@
                 <input id="noticia[subtitulo]" name="noticia[subtitulo]" type="text" value="<?php echo $noticia->subtitulo?>"/><br/>
 
                 <label for="noticia[texto]" class="fieldLabel">Texto</label>
-                <textarea id="noticia[texto]" name="noticia[texto]" type="text"><?php echo $noticia->texto?></textarea><br/>
+                <textarea id="noticia[texto]" name="noticia[texto]" ><?php echo $noticia->texto?></textarea><br/>
 
                 <label for="noticia[status]A" class="fieldLabel">Status</label>
                 <input id="noticia[status]A" name="noticia[status]" type="radio" value="A" <?php echo $noticia->status ==='A' ? 'checked':'' ?>/>

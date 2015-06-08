@@ -29,7 +29,7 @@ class Noticia {
     public $texto;
     /**
      * Data e hora da publicação
-     * @var date
+     * @var string
      */
     public $data;
     /**

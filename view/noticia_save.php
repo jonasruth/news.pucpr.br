@@ -25,7 +25,7 @@
 
 
             <?php if($sucesso): ?>
-                <h2 class="sub-header">Salvamento da notícia <?php echo \JonasRuth\NewsPucpr\NoticiaDAO::find($myRoute->getParam('id'))->nome ?></h2>
+                <h2 class="sub-header">Salvamento da notícia <?php echo \JonasRuth\NewsPucpr\NoticiaDAO::find($myRoute->getParam('id'))->titulo ?></h2>
                 <p>A notícia foi salvo com sucesso!</p>
             <?php else: ?>
                 <h2 class="sub-header">Oops..</h2>

@@ -30,7 +30,7 @@
                 <input id="noticia[subtitulo]" name="noticia[subtitulo]" type="text" value=""/><br/>
 
                 <label for="noticia[texto]" class="fieldLabel">Texto</label>
-                <textarea id="noticia[texto]" name="noticia[texto]" type="text"></textarea><br/>
+                <textarea id="noticia[texto]" name="noticia[texto]"></textarea><br/>
 
                 <label for="noticia[status]A" class="fieldLabel">Status</label>
                 <input id="noticia[status]A" name="noticia[status]" type="radio" value="A"/>

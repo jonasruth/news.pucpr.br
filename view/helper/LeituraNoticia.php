@@ -2,8 +2,6 @@
 
 namespace JonasRuth\NewsPucpr;
 
-use \Route;
-
 class LeituraNoticia
 {
     public static function fromRecord($noticia)

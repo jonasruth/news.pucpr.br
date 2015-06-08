@@ -51,7 +51,7 @@ class UsuarioDAO
         //Obtém registro encontrado
         $row = $st->fetch(PDO::FETCH_ASSOC);
 
-        $record = new \JonasRuth\NewsPucpr\Usuario();
+        $record = new Usuario();
 
         if (is_array($row) && sizeof($row) > 0) {
             foreach ($row as $key => $value) {
@@ -75,7 +75,7 @@ class UsuarioDAO
 
         while ($row = $st->fetch(PDO::FETCH_ASSOC)) {
 
-            $item = new \JonasRuth\NewsPucpr\Usuario();
+            $item = new Usuario();
 
             foreach ($row as $key => $value) {
                 $item->$key = $value;

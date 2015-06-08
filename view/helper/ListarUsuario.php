@@ -2,7 +2,7 @@
 
 namespace JonasRuth\NewsPucpr;
 
-use \Route;
+use JonasRuth\PhpSimpleRoute\Route;
 
 class ListarUsuario
 {

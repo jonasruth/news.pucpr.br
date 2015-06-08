@@ -25,7 +25,7 @@ class NoticiaDAO
         $row = $st->fetch(PDO::FETCH_ASSOC);
 
         // Define nos atributos da instância os valores
-        $record = new \JonasRuth\NewsPucpr\Noticia();
+        $record = new Noticia();
 
         if (is_array($row) && sizeof($row) > 0) {
             foreach ($row as $key => $value) {
@@ -49,7 +49,7 @@ class NoticiaDAO
 
         while ($row = $st->fetch(PDO::FETCH_ASSOC)) {
 
-            $item = new \JonasRuth\NewsPucpr\Noticia();
+            $item = new Noticia();
 
             foreach ($row as $key => $value) {
                 $item->$key = $value;
@@ -75,7 +75,7 @@ class NoticiaDAO
 
         while ($row = $st->fetch(PDO::FETCH_ASSOC)) {
 
-            $item = new \JonasRuth\NewsPucpr\Noticia();
+            $item = new Noticia();
 
             foreach ($row as $key => $value) {
                 $item->$key = $value;

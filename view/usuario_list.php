@@ -48,7 +48,6 @@ use JonasRuth\NewsPucpr\UsuarioController;
             if (!confirm('Deseja realmente excluir este usuário?')) {
                 return;
             }
-            ;
 
             $.ajax({
                 url: '<?php echo $myRoute->createLink('del_usuario_ajx', array()); ?>',
