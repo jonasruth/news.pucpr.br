@@ -19,7 +19,7 @@ use JonasRuth\NewsPucpr\NoticiaController;
 <div class="blog-masthead">
     <div class="container">
         <nav class="blog-nav">
-            <a class="blog-nav-item active" href="<?php echo $myRoute->createLink('startpage',array()); ?>">Notícias</a>
+            <a class="blog-nav-item active" href="<?php echo $myRoute->createLink('startpage'); ?>">Notícias</a>
             <a class="blog-nav-item" href="<?php echo $myRoute->createLink('administracao'); ?>">Administração</a>
         </nav>
     </div>
@@ -28,7 +28,7 @@ use JonasRuth\NewsPucpr\NoticiaController;
 <div class="container">
 
     <div class="blog-header">
-        <h1 class="blog-title">PUCPR News</h1>
+        <h1 class="blog-title"><a href="<?php echo $myRoute->createLink('startpage'); ?>">PUCPR News</h1>
         <p class="lead blog-description">O site de notícias do curso de AppDev por Jonas Ruth</p>
 
 
