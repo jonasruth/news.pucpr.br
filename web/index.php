@@ -1,10 +1,26 @@
 <?php
+/**
+ * BOOTSTRAP da aplicação
+ *
+ * Todas as requisições passam por este arquivo
+ *
+ * Utilizo fortemente URLs Amigáveis
+ * Não esquecer de configurar o VIRTUAL HOST no apache e verificar o .htaccess
+ */
+
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 header('Content-type:text/html; charset=UTF-8');
 session_start();
 
-// Carregamento de classes
+define('APP_DIR_CORE','../core/');
+define('APP_DIR_CONTROLLER','../controller/');
+define('APP_DIR_MODEL','../model/');
+define('APP_DIR_VIEW_HELPER','../view/helper/');
+define('APP_DIR_LIBRARY','../library/');
+
+
+/*// Carregamento de classes
 require_once('../core/Conn.php');
 require_once('../core/Application.php');
 require_once('../controller/NoticiaController.php');
@@ -14,7 +30,6 @@ require_once('../view/helper/TabelaNoticias.php');
 require_once('../view/helper/ListaNoticias.php');
 require_once('../view/helper/LeituraNoticia.php');
 
-
 require_once('../controller/UsuarioController.php');
 require_once('../model/Usuario.php');
 require_once('../model/UsuarioDAO.php');
@@ -23,12 +38,38 @@ require_once('../view/helper/MenuAdm.php');
 
 // Library
 require_once('../library/Util.php');
-require_once('../library/AccessDeniedException.php');
+require_once('../library/AccessDeniedException.php');*/
 
+// Autoloader de classes
+// Sempre que uma classe for utilizada e o PHP
+// não encontrar sua definição, esta função será chamada
+function __autoload($classname) {
+
+    // Como uso namespaces
+    // Preciso tratar o nome completo da classe
+    $cortes = explode('\\', $classname);
+    $classname = end($cortes);
+
+    if(file_exists(APP_DIR_CORE . "$classname.php"))
+        require_once APP_DIR_CORE . "$classname.php";
+    if(file_exists(APP_DIR_CONTROLLER . "$classname.php"))
+        require_once APP_DIR_CONTROLLER . "$classname.php";
+    if(file_exists(APP_DIR_MODEL . "$classname.php"))
+        require_once APP_DIR_MODEL . "$classname.php";
+    if(file_exists(APP_DIR_VIEW_HELPER . "$classname.php"))
+        require_once APP_DIR_VIEW_HELPER . "$classname.php";
+    if(file_exists(APP_DIR_LIBRARY . "$classname.php"))
+        require_once APP_DIR_LIBRARY . "$classname.php";
+
+}
+
+// Classe responsável pelas URLs Amigáveis e Roteamento
 // https://github.com/jonasruth/php-simple-routing
 require_once('../library/php-simple-routing/lib/Route.class.php');
 
 // Definição das regras de URL
+// Possibilita a formação de URLs Amigáveis
+// Crio rotas e regras
 $routeList = array(
     // GERAL
     'startpage' => array(
@@ -125,6 +166,9 @@ $routeList = array(
 define('ACESSO_ESCRITOR', 'E');
 define('ACESSO_ADMINISTRADOR', 'A');
 
+// Definições do controle de acesso
+// Aqui digo qual o acesso o usuário precisa
+// ter para acessar cada rota
 $controleAcesso = array(
     // GERAL
     'startpage' => array(),
@@ -168,22 +212,22 @@ try {
         ->check();
 
     $meuAcesso = null;
-    if(\JonasRuth\NewsPucpr\UsuarioController::isLogged()){
+    if (\JonasRuth\NewsPucpr\UsuarioController::isLogged()) {
         $meuAcesso = \JonasRuth\NewsPucpr\UsuarioController::getLogged()['tipo'];
     }
     $acessoNecessario = $controleAcesso[$myRoute->getMatchedRouteName()];
 
-    if(empty($acessoNecessario)){ // Se não for necessário permissão de acesso
+    if (empty($acessoNecessario)) { // Se não for necessário permissão de acesso
         include $myRoute->getMatchedRouteAction(); // Vai para destino
-    }else{
-        if(!empty($acessoNecessario)){ // Se for necessário permissão de acesso
-            if(!empty($meuAcesso)){ // Se o usuário já estiver logado
-                if(in_array($meuAcesso, $controleAcesso[$myRoute->getMatchedRouteName()])){
+    } else {
+        if (!empty($acessoNecessario)) { // Se for necessário permissão de acesso
+            if (!empty($meuAcesso)) { // Se o usuário já estiver logado
+                if (in_array($meuAcesso, $controleAcesso[$myRoute->getMatchedRouteName()])) {
                     include $myRoute->getMatchedRouteAction();
-                }else{
+                } else {
                     throw new AccessDeniedException('Acesso não permitido.');
                 }
-            }else{ // Pedir login
+            } else { // Pedir login
                 include '../view/autenticacao.php';
             }
         }

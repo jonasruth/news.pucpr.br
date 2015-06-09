@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <head>
-    <title>Dashboard Template for Bootstrap</title>
+    <title>Administração PUCPR News</title>
 
     <?php include('html_include/adm-header.php'); ?>
 
@@ -23,14 +23,18 @@
 
 
             <?php if($sucesso): ?>
-                <h2 class="sub-header">Exclusão da notícia <?php echo \JonasRuth\NewsPucpr\NoticiaDAO::find($myRoute->getParam('id'))->titulo ?></h2>
-                <p>A notícia foi excluído com sucesso!</p>
+                <h2 class="sub-header">Exclusão</h2>
+                <div class="alert alert-success" role="alert">
+                A notícia foi excluída com sucesso!
+                </div>
             <?php else: ?>
                 <h2 class="sub-header">Oops..</h2>
-                <p>A notícia NÃO foi excluído conforme solicitado..</p>
+                <div class="alert alert-danger" role="alert">
+                A notícia NÃO foi excluído conforme solicitado..
+                </div>
             <?php endif; ?>
 
-            <a class="btn btn-info" href="<?php echo $myRoute->createLink('ger_noticias', array()); ?>">Voltar para administração Notícias</a>
+            <a class="btn btn-info" href="<?php echo $myRoute->createLink('ger_noticias', array()); ?>">Voltar para administração de Notícias</a>
 
         </div>
     </div>

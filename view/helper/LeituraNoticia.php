@@ -2,8 +2,17 @@
 
 namespace JonasRuth\NewsPucpr;
 
+/**
+ * Class LeituraNoticia
+ * @package JonasRuth\NewsPucpr
+ */
 class LeituraNoticia
 {
+    /**
+     * Desenha a notícia em formato HTML para leitura
+     * @param $noticia
+     * @return string
+     */
     public static function fromRecord($noticia)
     {
         $html = '';

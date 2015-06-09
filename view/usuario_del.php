@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <head>
-    <title>Dashboard Template for Bootstrap</title>
+    <title>Administração PUCPR News</title>
 
     <?php include('html_include/adm-header.php'); ?>
 
@@ -21,16 +21,19 @@
             <?php $sucesso = \JonasRuth\NewsPucpr\UsuarioController::deletarAction($myRoute->getParam('id')) ?>
             <h1 class="page-header">Usuários</h1>
 
-
             <?php if($sucesso): ?>
-                <h2 class="sub-header">Exclusão do usuário <?php echo \JonasRuth\NewsPucpr\UsuarioDAO::find($myRoute->getParam('id'))->nome ?></h2>
-                <p>O usuário foi excluído com sucesso!</p>
+                <h2 class="sub-header">Exclusão</h2>
+                <div class="alert alert-success" role="alert">
+                O usuário foi excluído com sucesso!
+                </div>
             <?php else: ?>
                 <h2 class="sub-header">Oops..</h2>
-                <p>O usuário NÃO foi excluído conforme solicitado..</p>
+                <div class="alert alert-danger" role="alert">
+                   O usuário NÃO foi excluído conforme solicitado..
+                </p>
             <?php endif; ?>
 
-            <a class="btn btn-info" href="<?php echo $myRoute->createLink('ger_usuarios', array()); ?>">Voltar para administração Usuários</a>
+            <a class="btn btn-info" href="<?php echo $myRoute->createLink('ger_usuarios', array()); ?>">Voltar para administração de Usuários</a>
 
         </div>
     </div>

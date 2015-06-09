@@ -1,7 +1,6 @@
-<?php $usuario = \JonasRuth\NewsPucpr\UsuarioDAO::find($myRoute->getParam('id')) ?>
 <!DOCTYPE html>
 <head>
-    <title>Dashboard Template for Bootstrap</title>
+    <title>Administração PUCPR News</title>
 
     <?php include('html_include/adm-header.php'); ?>
 
@@ -19,20 +18,23 @@
             </ul>
         </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-            <?php print_r($_POST) ?>
             <?php $sucesso = \JonasRuth\NewsPucpr\UsuarioController::salvarAction($_POST['usuario']) ?>
             <h1 class="page-header">Usuários</h1>
 
 
             <?php if($sucesso): ?>
-                <h2 class="sub-header">Salvamento do usuário <?php echo \JonasRuth\NewsPucpr\UsuarioDAO::find($myRoute->getParam('id'))->nome ?></h2>
-                <p>O usuário foi salvo com sucesso!</p>
+                <h2 class="sub-header">Salvamento</h2>
+                <div class="alert alert-success" role="alert">
+                    O usuário foi salvo com sucesso!
+                </div>
             <?php else: ?>
                 <h2 class="sub-header">Oops..</h2>
-                <p>O usuário NÃO foi salvo conforme solicitado..</p>
+                <div class="alert alert-danger" role="alert">
+                O usuário NÃO foi salvo conforme solicitado..
+                </div>
             <?php endif; ?>
 
-            <a class="btn btn-info" href="<?php echo $myRoute->createLink('ger_usuarios', array()); ?>">Voltar para administração Usuários</a>
+            <a class="btn btn-info" href="<?php echo $myRoute->createLink('ger_usuarios', array()); ?>">Voltar para administração de Usuários</a>
 
         </div>
     </div>

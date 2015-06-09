@@ -4,8 +4,16 @@ namespace JonasRuth\NewsPucpr;
 
 use JonasRuth\PhpSimpleRoute\Route;
 
+/**
+ * Class MenuAdm
+ * @package JonasRuth\NewsPucpr
+ */
 class MenuAdm
 {
+    /**
+     * Desenha um menu lateral para a área administrativa
+     * @return string
+     */
     public static function create()
     {
 

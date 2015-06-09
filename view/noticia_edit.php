@@ -1,7 +1,7 @@
 <?php $noticia = \JonasRuth\NewsPucpr\NoticiaDAO::find($myRoute->getParam('id')) ?>
 <!DOCTYPE html>
 <head>
-    <title>Dashboard Template for Bootstrap</title>
+    <title>Administração PUCPR News</title>
 
     <?php include('html_include/adm-header.php'); ?>
 </head>
@@ -22,20 +22,22 @@
 
             <h2 class="sub-header">Edição da notícia <?php echo \JonasRuth\NewsPucpr\NoticiaDAO::find($myRoute->getParam('id'))->titulo ?></h2>
 
+            <div id="form-message" class="alert alert-danger" role="alert"></div>
+
             <form method="post" action="<?php echo $myRoute->createLink('salvar_noticia', array()); ?>">
 
                 <input id="noticia[id]" name="noticia[id]" type="hidden" value="<?php echo $noticia->id?>"/>
 
-                <label for="noticia[titulo]" class="fieldLabel">Título</label>
+                <label for="noticia[titulo]" class="fieldLabel">Título *</label>
                 <input id="noticia[titulo]" name="noticia[titulo]" type="text" value="<?php echo $noticia->titulo?>"/><br/>
 
-                <label for="noticia[subtitulo]" class="fieldLabel">Subtítulo</label>
+                <label for="noticia[subtitulo]" class="fieldLabel">Subtítulo *</label>
                 <input id="noticia[subtitulo]" name="noticia[subtitulo]" type="text" value="<?php echo $noticia->subtitulo?>"/><br/>
 
-                <label for="noticia[texto]" class="fieldLabel">Texto</label>
+                <label for="noticia[texto]" class="fieldLabel">Texto *</label>
                 <textarea id="noticia[texto]" name="noticia[texto]" ><?php echo $noticia->texto?></textarea><br/>
 
-                <label for="noticia[status]A" class="fieldLabel">Status</label>
+                <label for="noticia[status]A" class="fieldLabel">Status *</label>
                 <input id="noticia[status]A" name="noticia[status]" type="radio" value="A" <?php echo $noticia->status ==='A' ? 'checked':'' ?>/>
                 <label for="noticia[status]A">Ativo</label>
                 <input id="noticia[status]I" name="noticia[status]" type="radio" value="I" <?php echo $noticia->status ==='I' ? 'checked':'' ?>/>
@@ -55,5 +57,25 @@
 </body>
 
 <?php include('html_include/adm-scripts.html'); ?>
+<script type="text/javascript">
+    jQuery(document).ready(function ($) {
+        $('#form-message').hide(0).text('');
+        $('button[type=submit]').on('click',function(e){
+            e.preventDefault();
+
+            if(
+                ( $("#noticia\\[titulo\\]").val().length === 0 ) ||
+                    ( $("#noticia\\[subtitulo\\]").val().length === 0 ) ||
+                    ( $("#noticia\\[texto\\]").val().length === 0 ) ||
+                    ( !$("input[name=noticia\\[status\\]]:checked").val() )
+                ){
+                $('#form-message').show(0).text('Preencha todos os campos marcados com asterisco (*).');
+            }else{
+                $('#form-message').hide(0).text('');
+                $('form').submit();
+            }
+        });
+    });
+</script>
 
 </html>

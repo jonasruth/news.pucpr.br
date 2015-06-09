@@ -2,9 +2,18 @@
 
 namespace JonasRuth\NewsPucpr;
 
+/**
+ * Class Util
+ * @package JonasRuth\NewsPucpr
+ */
 class Util
 {
 
+    /**
+     * Faz slug de string para usar na url
+     * @param $text
+     * @return mixed|string
+     */
     public static function slugify($text)
     {
         // replace non letter or digits by -

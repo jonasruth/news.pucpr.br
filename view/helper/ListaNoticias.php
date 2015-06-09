@@ -4,8 +4,17 @@ namespace JonasRuth\NewsPucpr;
 
 use JonasRuth\PhpSimpleRoute\Route;
 
+/**
+ * Class ListaNoticias
+ * @package JonasRuth\NewsPucpr
+ */
 class ListaNoticias
 {
+    /**
+     * Desenha uma lista de notícias em formato HTML
+     * @param $arrNoticias
+     * @return string
+     */
     public static function fromArray($arrNoticias)
     {
         $html = '';

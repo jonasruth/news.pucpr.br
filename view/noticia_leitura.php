@@ -28,7 +28,7 @@ use JonasRuth\NewsPucpr\NoticiaController;
 <div class="container">
 
     <div class="blog-header">
-        <h1 class="blog-title"><a href="<?php echo $myRoute->createLink('startpage'); ?>">PUCPR News</h1>
+        <h1 class="blog-title"><a href="<?php echo $myRoute->createLink('startpage'); ?>">PUCPR News</a></h1>
         <p class="lead blog-description">O site de notícias do curso de AppDev por Jonas Ruth</p>
 
 

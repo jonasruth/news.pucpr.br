@@ -5,7 +5,7 @@ use JonasRuth\NewsPucpr\NoticiaController;
 ?>
 <!DOCTYPE html>
 <head>
-    <title>Dashboard Template for Bootstrap</title>
+    <title>Administração PUCPR News</title>
 
     <?php include('html_include/adm-header.php'); ?>
 </head>

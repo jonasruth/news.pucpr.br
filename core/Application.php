@@ -2,13 +2,29 @@
 
 namespace JonasRuth\NewsPucpr;
 
+/**
+ * Class Application
+ * @package JonasRuth\NewsPucpr
+ */
 class Application
 {
 
+    /**
+     * @var null
+     */
     private static $instance = null;
 
+    /**
+     * @var string
+     */
     private $protocol = 'http';
+    /**
+     * @var string
+     */
     private $domain = 'news.pucpr.br';
+    /**
+     * @var string
+     */
     private $basedir = '/';
 
     /**
@@ -27,6 +43,9 @@ class Application
 
     }
 
+    /**
+     * @return string
+     */
     public function getBaseURL()
     {
         return sprintf("%s://%s%s",$this->protocol,$this->domain,$this->basedir);

@@ -4,8 +4,17 @@ namespace JonasRuth\NewsPucpr;
 
 use JonasRuth\PhpSimpleRoute\Route;
 
+/**
+ * Class TabelaUsuarios
+ * @package JonasRuth\NewsPucpr
+ */
 class TabelaUsuarios
 {
+    /**
+     * Desenha uma tabela de usuarios para a area administrativa
+     * @param $arrUsuarios
+     * @return string
+     */
     public static function fromArray($arrUsuarios)
     {
 

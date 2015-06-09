@@ -4,8 +4,17 @@ namespace JonasRuth\NewsPucpr;
 
 use JonasRuth\PhpSimpleRoute\Route;
 
+/**
+ * Class TabelaNoticias
+ * @package JonasRuth\NewsPucpr
+ */
 class TabelaNoticias
 {
+    /**
+     * Desenha uma tabela de noticias para a area administrativa
+     * @param $arrNoticias
+     * @return string
+     */
     public static function fromArray($arrNoticias)
     {
 
